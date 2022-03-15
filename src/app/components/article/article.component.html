@@ -1,0 +1,13 @@
+<ion-card class="ion-margin">
+  <ion-card-subtitle class="ion-margin">
+    <ion-text color="primary">{{ num }} </ion-text>
+    <ion-text>{{ article.source.name }}</ion-text>
+  </ion-card-subtitle>
+  <ion-card-title class="ion-padding-horizontal ion-margin-bottom">
+    {{ article.title }}
+  </ion-card-title>
+  <ion-img [src]="article.urlToImage"></ion-img>
+  <ion-card-content>
+    <p>{{ article.description }}</p>
+  </ion-card-content>
+</ion-card>
