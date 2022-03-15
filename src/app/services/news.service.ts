@@ -27,29 +27,29 @@ export class NewsService {
     return `https://newsapi.org/v2/top-headlines?${query}`;
   }
 
-  public getTopHeadLines(): Observable<Article[]> {
+  public getTopHeadLines(
+    pageNum: number
+  ): Observable<any> {
     return this.http
       .get<NewsResponse>(
         this.buildUrl({
           country: 'fr',
+          pageSize: 5,
+          page: pageNum,
         }),
         this.options
       )
       .pipe(
-        map((res: any) => {
-          console.log(res);
-          return res.articles;
-        })
+        map((res: any) => res)
       );
   }
 
   public getTopHeadLinesByCategory(category: string): Observable<Article[]> {
-    return this.http.get<NewsResponse>(
-      this.buildUrl({ country: 'fr', category}),
-      this.options
-    )
-    .pipe(
-      map((res) => res.articles)
-    );
+    return this.http
+      .get<NewsResponse>(
+        this.buildUrl({ country: 'fr', category }),
+        this.options
+      )
+      .pipe(map((res) => res.articles));
   }
 }

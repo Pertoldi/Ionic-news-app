@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IonInfiniteScroll } from '@ionic/angular';
 import { Article } from 'src/app/interfaces';
 import { NewsService } from 'src/app/services/news.service';
 
@@ -8,16 +9,37 @@ import { NewsService } from 'src/app/services/news.service';
   styleUrls: ['./headlines.page.scss'],
 })
 export class HeadlinesPage implements OnInit {
-
   articles: Article[] = [];
+  page = 1;
+  totalResults: number;
+  endOfInfiniteScroll = false;
 
-  constructor(private newsService: NewsService) { }
+
+  constructor(private newsService: NewsService) {}
 
   ngOnInit() {
-    this.newsService.getTopHeadLines()
-    .subscribe((articles) => {
-      this.articles = articles;
+    this.getSomeArticles();
+  }
+
+  getSomeArticles() {
+    this.newsService.getTopHeadLines(this.page).subscribe((res) => {
+      this.articles.push(...res.articles);
+      this.totalResults = res.totalResults;
+      this.page++;
     });
   }
 
+  loadData(event) {
+    setTimeout(() => {
+      event.target.complete();
+      this.getSomeArticles();
+
+      // App logic to determine if all data is loaded
+      // and disable the infinite scroll
+      if (this.articles.length === this.totalResults) {
+        event.target.disabled = true;
+        this.endOfInfiniteScroll = true;
+      }
+    }, 500);
+  }
 }
