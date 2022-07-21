@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Article } from 'src/app/interfaces';
+import { StorageService } from 'src/app/services/storage.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-favorites',
@@ -6,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./favorites.page.scss'],
 })
 export class FavoritesPage implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private storageService: StorageService) {
+    this.loadFavorite();
   }
 
+  ngOnInit() {}
+
+  async loadFavorite() {
+    return await this.storageService.getFavorite();
+  }
 }

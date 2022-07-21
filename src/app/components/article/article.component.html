@@ -1,13 +1,40 @@
-<ion-card class="ion-margin">
+<ion-card
+  color="light"
+  class="ion-margin"
+  *ngIf="article">
+
   <ion-card-subtitle class="ion-margin">
-    <ion-text color="primary">{{ num }} </ion-text>
-    <ion-text>{{ article.source.name }}</ion-text>
-  </ion-card-subtitle>
-  <ion-card-title class="ion-padding-horizontal ion-margin-bottom">
-    {{ article.title }}
-  </ion-card-title>
-  <ion-img [src]="article.urlToImage"></ion-img>
-  <ion-card-content>
-    <p>{{ article.description }}</p>
-  </ion-card-content>
-</ion-card>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-margin">
+        <ion-text
+        class="circle-nb"
+        color="primary">
+          {{ num }}
+        </ion-text>
+        <ion-text>{{ article.source.name }}</ion-text>
+      </ion-col>
+      <ion-col class="ion-text-end">
+        <ion-button fill="clear" (click)="openMenu()">
+          <ion-icon
+            slot="icon-only"
+            name="ellipsis-vertical-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    </ion-card-subtitle>
+
+    <ion-card-title class="ion-padding-horizontal ion-margin-bottom" (click)="openArticle()">
+      {{ article.title }}
+    </ion-card-title>
+
+    <ion-img
+      *ngIf="!hideImage"
+      (ionError)="hideImage = true"
+      [src]="article.urlToImage">
+    </ion-img>
+
+    <ion-card-content>
+      <p>{{ article.description }}</p>
+    </ion-card-content>
+
+</ion-card> 

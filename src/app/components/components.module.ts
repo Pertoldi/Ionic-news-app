@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleComponent } from './article/article.component';
 
-const components = [HeaderComponent, ArticlesComponent]
+const components = [HeaderComponent, ArticlesComponent];
 
 @NgModule({
   declarations: [...components, ArticleComponent],
